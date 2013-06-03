@@ -1,6 +1,6 @@
 # SiliconRewriter
 
-TODO: Write a gem description
+An url rewriter with simple hash
 
 ## Installation
 
@@ -12,13 +12,27 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install silicon_rewriter
-
 ## Usage
 
-TODO: Write usage instructions here
+Then you have to add this line:
+```ruby
+Rails.application.config.middleware.insert_before 'ActionDispatch::Static', 'SiliconRewriter::Rewriter', my_hash
+```
+
+The `my_hash` structure must be into the form of:
+
+```yml
+silicon_rewriter:
+  rules:
+    -
+      host: 'localhost'
+      from: '/robots.txt'
+      to:   '/robots.fr.txt'
+    -
+      host: 'localhost'
+      from: '/404.txt'
+      to:   '/404.fr.txt'
+```
 
 ## Contributing
 

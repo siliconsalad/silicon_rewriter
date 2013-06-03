@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = SiliconRewriter::VERSION
   spec.authors       = ["Baptiste Lecocq"]
   spec.email         = ["baptiste.lecocq@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = "An url rewriter with simple hash"
+  spec.summary       = "An url rewriter with simple hash"
+  spec.homepage      = "https://github.com/siliconsalad/silicon_rewriter"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
