@@ -1,6 +1,6 @@
 # SiliconRewriter
 
-An url rewriter with simple hash
+An URL rewriter based on a simple hash
 
 ## Installation
 
@@ -19,7 +19,7 @@ Then you have to add this line:
 Rails.application.config.middleware.insert_before 'ActionDispatch::Static', 'SiliconRewriter::Rewriter', my_hash
 ```
 
-The `my_hash` structure must be into the form of:
+The `my_hash` structure should look like:
 
 ```yml
 silicon_rewriter:
