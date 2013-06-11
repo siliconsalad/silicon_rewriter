@@ -3,10 +3,11 @@ require 'silicon_rewriter/rewriter'
 
 describe SiliconRewriter::Rewriter do
   let(:application) { mock }
+
   let(:rules) do
     [
-      { host: 'localhost', from: '/robots.txt', to: '/robots.fr.txt' },
-      { host: 'localhost', from: '/404.txt',    to: '/404.fr.txt' }
+      { 'host' => 'localhost', 'from' => '/robots.txt', 'to' => '/robots.fr.txt' },
+      { 'host' => 'localhost', 'from' => '/404.txt',    'to' => '/404.fr.txt' }
     ]
   end
 
@@ -23,8 +24,11 @@ describe SiliconRewriter::Rewriter do
   describe '#call' do
     let(:environment) { {} }
 
-    it 'calls application.call with environment' do
+    before(:each) do
       subject.stub(:matching_rule)
+    end
+
+    it 'calls application.call with environment' do
       application.should_receive(:call).with(environment)
       subject.call(environment)
     end
@@ -67,49 +71,57 @@ describe SiliconRewriter::Rewriter do
   end
 
   describe '#matching_rule' do
-    let(:environment) { {} }
-    let(:rack_request) { mock }
+    let(:environment)   { {} }
+    let(:rack_request)  { mock }
 
     before(:each) do
       application.stub(:call)
     end
 
     context 'when there is no matching rule' do
-      it 'returns nil' do
+      before(:each) do
         rack_request.stub(:host).and_return('awesome-website.fr')
         rack_request.stub(:path_info).and_return('/awesome-route')
         ::Rack::Request.stub(:new).with(environment).and_return(rack_request)
+      end
 
+      it 'returns nil' do
         subject.send(:matching_rule, environment).should be_nil
       end
     end
 
     context 'when there is a rule only matching the host' do
-      it 'returns nil' do
+      before(:each) do
         rack_request.stub(:host).and_return('localhost')
         rack_request.stub(:path_info).and_return('/awesome-route')
         ::Rack::Request.stub(:new).with(environment).and_return(rack_request)
+      end
 
+      it 'returns nil' do
         subject.send(:matching_rule, environment).should be_nil
       end
     end
 
     context 'when there is a rule only matching the desired destination' do
-      it 'returns nil' do
+      before(:each) do
         rack_request.stub(:host).and_return('awesome-website.fr')
         rack_request.stub(:path_info).and_return('/robots.txt')
         ::Rack::Request.stub(:new).with(environment).and_return(rack_request)
+      end
 
+      it 'returns nil' do
         subject.send(:matching_rule, environment).should be_nil
       end
     end
 
     context 'when there is a rule matching the request' do
-      it 'return the rule' do
+      before(:each) do
         rack_request.stub(:host).and_return('localhost')
         rack_request.stub(:path_info).and_return('/robots.txt')
         ::Rack::Request.stub(:new).with(environment).and_return(rack_request)
+      end
 
+      it 'returns the rule' do
         subject.send(:matching_rule, environment).should == rules.first
       end
     end

@@ -1,4 +1,5 @@
 require 'rack/request'
+require 'active_support/hash_with_indifferent_access'
 
 module SiliconRewriter
   class Rewriter
@@ -27,7 +28,11 @@ module SiliconRewriter
       request = ::Rack::Request.new(env)
 
       self.rules.each do |rule|
-        return rule if rule[:host] == request.host && rule[:from] == request.path_info
+        rule = HashWithIndifferentAccess.new(rule)
+
+        if rule[:host] == request.host && rule[:from] == request.path_info
+          return rule
+        end
       end
 
       nil
