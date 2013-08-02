@@ -37,7 +37,15 @@ silicon_rewriter:
 ## Contributing
 
 1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
+2. Create your feature/bug branch from `develop` (`git checkout -b feature/my_new_feature` or `git checkout -b bug/my_bug_fix`)
+3. Commit your changes (`git commit -am 'Add some feature'` or `git commit -am 'Fix some bug'`)
+4. Push to the branch (`git push origin feature/my_new_feature` or `git push origin bug/my_bug_fix`)
 5. Create new Pull Request
+
+### Advices
+
+We'll have a look to your code only if tests pass.
+
+Follow the conventions you see used in the source already.
+  * The [Gitflow workflow](http://nvie.com/posts/a-successful-git-branching-model/)
+  * The [Ruby style guide](https://github.com/bbatsov/ruby-style-guide)
